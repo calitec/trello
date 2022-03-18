@@ -1,0 +1,131 @@
+<template>
+  <div class="board-menu__container">
+    <div class="board-menu-header">
+      <div class="header-title">Menu</div>
+      <a class="header-close-btn" href="" @click.prevent="onClose">&times;</a>
+    </div>
+    <ul class="menu-list">
+      <li><a href="" @click.prevent="onDeleteBoard">Delete Board</a></li>
+      <li>Change Background</li>
+      <div class="color-picker">
+        <a
+          href=""
+          data-value="rgb(0, 121, 191)"
+          @click.prevent="onChangeTheme"
+        ></a>
+        <a
+          href=""
+          data-value="rgb(219 172 107)"
+          @click.prevent="onChangeTheme"
+        ></a>
+        <a
+          href=""
+          data-value="rgb(140 101 147)"
+          @click.prevent="onChangeTheme"
+        ></a>
+        <a
+          href=""
+          data-value="rgb(176, 70, 50)"
+          @click.prevent="onChangeTheme"
+        ></a>
+      </div>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { mapState, mapMutations, mapActions } from "vuex";
+export default {
+  computed: {
+    ...mapState({
+      board: "board"
+    })
+  },
+  mounted() {
+    Array.from(this.$el.querySelectorAll(".color-picker a")).forEach(el => {
+      el.style.backgroundColor = el.dataset.value;
+    });
+  },
+  methods: {
+    ...mapMutations(["SET_IS_SHOW_BOARD_SETTINGS", "SET_THEME"]),
+    ...mapActions(["DELETE_BOARD", "UPDATE_BOARD"]),
+    onClose() {
+      this.SET_IS_SHOW_BOARD_SETTINGS(false);
+    },
+    onDeleteBoard() {
+      if (!confirm(`Delete ${this.board.title} Board?`)) return;
+      this.DELETE_BOARD({ id: this.board.id })
+        .then(_ => this.SET_IS_SHOW_BOARD_SETTINGS(false))
+        .then(_ => this.$router.push("/"));
+    },
+    onChangeTheme(el) {
+      const id = this.board.id;
+      const bgColor = el.target.dataset.value;
+      this.UPDATE_BOARD({ id, bgColor }).then(_ => this.SET_THEME(bgColor));
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+@import "src/assets/scss/vars.scss";
+
+.board-menu__container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #edeff0;
+  width: 300px;
+  transition: all 0.3s;
+  .board-menu-header {
+    height: 46px;
+    padding: 0 6px 0 12px;
+    border-bottom: #bbb solid 1px;
+    .header-title {
+      font-size: 18px;
+      text-align: center;
+      line-height: 46px;
+      font-weight: 700;
+    }
+    .header-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-decoration: none;
+      font-size: 24px;
+      color: #999;
+    }
+  }
+  .menu-list {
+    list-style: none;
+    padding-left: 0px;
+    li {
+      padding: 10px;
+      border-radius: 3px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 5px;
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      &:hover:first-child,
+      &:focus:first-child {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .color-picker {
+      margin: 15px;
+      a {
+        display: inline-block;
+        width: 49%;
+        height: 100px;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+</style>
