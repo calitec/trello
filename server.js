@@ -1,18 +1,13 @@
 const express = require("express");
-const compression = require("compression");
 const path = require("path");
-const port = process.env.PORT || 8080;
-const app = express();
+const serveStatic = require("serve-static");
 
-app.disable("x-powered-by");
-app.use(compression());
-// the __dirname is the current directory from where the script is running
-app.use(express.static(path.join(__dirname, "dist")));
-
+let app = express();
+app.use(serveStatic(__dirname + "/dist"));
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
-
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
-  console.log(`express running on port:${port}`);
+  console.log("Listening on port " + port);
 });
