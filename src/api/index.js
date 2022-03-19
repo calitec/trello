@@ -3,7 +3,7 @@ import router from "../router";
 
 const DOMAIN =
   process.env.NODE_ENV === "production"
-    ? "https://ctrello.herokuapp.com"
+    ? "https://ctrello-server.herokuapp.com"
     : "http://localhost:3000";
 
 const UNAUTHORIZED = 401;
