@@ -2,9 +2,10 @@ import axios from "axios";
 import router from "../router";
 
 const DOMAIN =
-  process.ENV == "production"
+  process.env.NODE_ENV === "production"
     ? "https://ctrello.herokuapp.com"
     : "http://localhost:3000";
+
 const UNAUTHORIZED = 401;
 const onUnauthorized = () => {
   router.push(`/login?rPath=${encodeURIComponent(location.pathname)}`);
