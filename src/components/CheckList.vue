@@ -50,7 +50,7 @@ import AddCheckItem from "./AddCheckItem.vue";
 
 export default {
   components: { AddCheckItem },
-  props: ["checklist"],
+  props: ["card"],
   data() {
     return {
       isAddCheckList: false,
@@ -59,23 +59,20 @@ export default {
       progress: 0
     };
   },
-  computed: {
-    ...mapState({
-      card: "card"
-    })
-  },
-  created() {
-    this.fetchCard();
-  },
+  // computed: {
+  //   ...mapState({
+  //     card: "card"
+  //   })
+  // },
   updated() {
-    // const len = this.card.CheckLists.length;
-    // const result =
-    //   (this.card.CheckLists.filter(v => {
-    //     return v.value == "complete";
-    //   }).length /
-    //     len) *
-    //   100;
-    // this.progress = Math.floor(result);
+    const len = this.card.CheckLists.length;
+    const result =
+      (this.card.CheckLists.filter(v => {
+        return v.value == "complete";
+      }).length /
+        len) *
+      100;
+    this.progress = Math.floor(result);
   },
   methods: {
     ...mapActions(["ADD_CARD", "UPDATE_CHECK", "DELETE_CHECK", "FETCH_CARD"]),
@@ -89,19 +86,18 @@ export default {
         value: e.target.checked
       };
       const len = this.card.CheckLists.length;
-      if (this.checked.length < len) {
-        if (e.target.value) {
-          this.checked.push(checkId);
-        } else {
-          this.checked = this.checked.filter(v => {
-            v !== checkId;
-          });
-        }
+
+      if (e.target.value) {
+        this.checked.push(checkId);
+      } else {
+        this.checked = this.checked.filter(v => {
+          v !== checkId;
+        });
       }
       this.progress = (this.checked.length / len) * 100;
 
       this.UPDATE_CHECK(value).then(() => {
-        // this.fetchCard();
+        this.fetchCard();
       });
     },
     onSaveContent(checkId, index) {

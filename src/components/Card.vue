@@ -26,7 +26,7 @@
         v-model="card.description"
         ref="inputDesc"
       ></textarea>
-      <CheckList />
+      <CheckList :card="card" />
     </div>
     <div slot="footer"></div>
   </Modal>
