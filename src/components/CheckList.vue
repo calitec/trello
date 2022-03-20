@@ -25,7 +25,7 @@
             type="text"
             :readonly="!toggleContent"
             @click="toggleContent = true"
-            :value="check.content"
+            v-model="check.content"
             ref="inputContent"
           />
           <button type="submit">Save</button>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapActions } from "vuex";
 import AddCheckItem from "./AddCheckItem.vue";
 
 export default {
@@ -59,11 +59,9 @@ export default {
       progress: 0
     };
   },
-  // computed: {
-  //   ...mapState({
-  //     card: "card"
-  //   })
-  // },
+  created() {
+    this.fetchCard();
+  },
   updated() {
     const len = this.card.CheckLists.length;
     const result =
