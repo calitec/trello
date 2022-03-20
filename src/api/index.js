@@ -3,7 +3,7 @@ import router from "../router";
 
 const DOMAIN =
   process.env.NODE_ENV === "production"
-    ? "https://ctrello-server.herokuapp.com"
+    ? "https://cali-trello-server.herokuapp.com"
     : "http://localhost:3000";
 
 const UNAUTHORIZED = 401;
@@ -14,7 +14,8 @@ const onUnauthorized = () => {
 const request = (method, url, data) => {
   return axios({
     method,
-    url: DOMAIN + url,
+    baseURL: DOMAIN,
+    url: url,
     data
   })
     .then(result => result.data)
@@ -78,7 +79,11 @@ export const auth = {
     return request("post", "/user", { userId, password });
   },
   login(userId, password) {
-    return request("post", "/user/login", { userId, password });
+    return request("post", "/user/login", {
+      userId,
+      password,
+      withCredentials: true
+    });
   }
 };
 
