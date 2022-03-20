@@ -84,6 +84,7 @@ export default {
       this.FETCH_CARD({ id });
     },
     onSaveCheck(checkId, e) {
+      e.preventDefault();
       const value = {
         id: checkId,
         value: e.target.checked
