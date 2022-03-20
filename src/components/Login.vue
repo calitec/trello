@@ -3,14 +3,14 @@
     <h2>Come to Trello</h2>
     <form @submit.prevent="onSubmit">
       <div>
-        <label for="email">Email</label>
+        <label for="userId">Id</label>
         <input
           class="form-control"
           type="text"
-          name="email"
-          v-model="email"
+          name="userId"
+          v-model="userId"
           autofocus
-          placeholder="e.g., test@test.com"
+          placeholder="e.g., tester"
         />
       </div>
       <div>
@@ -19,7 +19,7 @@
           class="form-control"
           type="password"
           v-model="password"
-          placeholder="123123"
+          placeholder="123"
         />
       </div>
       <button
@@ -45,7 +45,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      email: "",
+      userId: "",
       password: "",
       error: "",
       rPath: ""
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     invalidForm() {
-      return !this.email || !this.password;
+      return !this.userId || !this.password;
     }
   },
   created() {
@@ -62,7 +62,7 @@ export default {
   methods: {
     ...mapActions(["LOGIN"]),
     onSubmit() {
-      this.LOGIN({ email: this.email, password: this.password })
+      this.LOGIN({ userId: this.userId, password: this.password })
         .then(data => {
           this.$router.push(this.rPath);
         })

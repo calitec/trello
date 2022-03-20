@@ -74,11 +74,11 @@ export const card = {
 };
 
 export const auth = {
-  register(email, password) {
-    return request("post", "/user", { email, password });
+  register(userId, password) {
+    return request("post", "/user", { userId, password });
   },
-  login(email, password) {
-    return request("post", "/user/login", { email, password });
+  login(userId, password) {
+    return request("post", "/user/login", { userId, password });
   }
 };
 

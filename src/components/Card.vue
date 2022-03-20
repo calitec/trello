@@ -66,9 +66,9 @@ export default {
       this.toggleTitle = false;
       const title = this.$refs.inputTitle.value.trim();
       if (!title) return;
-      this.UPDATE_CARD({ id: this.card.id, title }).then(() =>
-        this.fetchCard()
-      );
+      this.UPDATE_CARD({ id: this.card.id, title }).then(() => {
+        // this.fetchCard()
+      });
     },
     onBlurDesc() {
       this.toggleDesc = false;

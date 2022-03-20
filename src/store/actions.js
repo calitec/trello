@@ -2,12 +2,12 @@ import * as api from "../api";
 
 const actions = {
   // 인증
-  REGISTER({ commit }, { email, password }) {
-    return api.auth.register(email, password).then(() => commit("REGISTER"));
+  REGISTER({ commit }, { userId, password }) {
+    return api.auth.register(userId, password).then(() => commit("REGISTER"));
   },
-  LOGIN({ commit }, { email, password }) {
+  LOGIN({ commit }, { userId, password }) {
     return api.auth
-      .login(email, password)
+      .login(userId, password)
       .then(({ accessToken }) => commit("LOGIN", accessToken));
   },
 

@@ -3,12 +3,12 @@
     <h2>Join to Trello</h2>
     <form @submit.prevent="onSubmit">
       <div>
-        <label for="email">Email</label>
+        <label for="userId">Id</label>
         <input
           class="form-control"
           type="text"
-          name="email"
-          v-model="email"
+          name="userId"
+          v-model="userId"
           autofocus
           placeholder="e.g., test@test.com"
         />
@@ -69,7 +69,7 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      email: "",
+      userId: "",
       password: "",
       passwordCheck: "",
       returnPath: "",
@@ -79,7 +79,7 @@ export default {
   computed: {
     invalidForm() {
       return (
-        !this.email || !this.password || this.password !== this.passwordCheck
+        !this.userId || !this.password || this.password !== this.passwordCheck
       );
     }
   },
@@ -90,9 +90,9 @@ export default {
   methods: {
     ...mapMutations(["SET_THEME"]),
     onSubmit() {
-      const { email, password } = this;
+      const { userId, password } = this;
       this.$store
-        .dispatch("REGISTER", { email, password })
+        .dispatch("REGISTER", { userId, password })
         .then(() => {
           this.$router.push(this.returnPath);
         })

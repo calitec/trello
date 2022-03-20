@@ -63,6 +63,9 @@ export default {
       card: "card"
     })
   },
+  created() {
+    this.fetchCard();
+  },
   updated() {
     const len = this.card.CheckLists.length;
     const result =
@@ -84,7 +87,9 @@ export default {
         id: checkId,
         value: e.target.checked
       };
-      this.UPDATE_CHECK(value).then(() => this.fetchCard());
+      this.UPDATE_CHECK(value).then(() => {
+        // this.fetchCard()
+      });
     },
     onSaveContent(checkId, index) {
       this.toggleContent = false;
@@ -93,7 +98,9 @@ export default {
         id: checkId,
         content
       };
-      this.UPDATE_CHECK(value).then(() => this.fetchCard());
+      this.UPDATE_CHECK(value).then(() => {
+        this.fetchCard();
+      });
     },
     onDeleteCheck(checkId) {
       if (!confirm(`Are you sure to delete this Item?`)) return;
