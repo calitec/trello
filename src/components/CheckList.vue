@@ -89,18 +89,19 @@ export default {
         value: e.target.checked
       };
       const len = this.card.CheckLists.length;
-
-      if (e.target.value) {
-        this.checked.push(checkId);
-      } else {
-        this.checked = this.checked.filter(v => {
-          v !== checkId;
-        });
+      if (this.checked.length < len) {
+        if (e.target.value) {
+          this.checked.push(checkId);
+        } else {
+          this.checked = this.checked.filter(v => {
+            v !== checkId;
+          });
+        }
       }
       this.progress = (this.checked.length / len) * 100;
 
       this.UPDATE_CHECK(value).then(() => {
-        this.fetchCard();
+        // this.fetchCard();
       });
     },
     onSaveContent(checkId, index) {
