@@ -55,6 +55,7 @@ export default {
     return {
       isAddCheckList: false,
       toggleContent: false,
+      checked: [],
       progress: 0
     };
   },
@@ -87,8 +88,19 @@ export default {
         id: checkId,
         value: e.target.checked
       };
+      const len = this.card.CheckLists.length;
+
+      if (e.target.value) {
+        this.checked.push(checkId);
+      } else {
+        this.checked = this.checked.filter(v => {
+          v !== checkId;
+        });
+      }
+      this.progress = (this.checked.length / len) * 100;
+
       this.UPDATE_CHECK(value).then(() => {
-        // this.fetchCard()
+        this.fetchCard();
       });
     },
     onSaveContent(checkId, index) {
