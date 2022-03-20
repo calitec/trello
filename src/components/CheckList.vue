@@ -68,14 +68,14 @@ export default {
     this.fetchCard();
   },
   updated() {
-    const len = this.card.CheckLists.length;
-    const result =
-      (this.card.CheckLists.filter(v => {
-        return v.value == "complete";
-      }).length /
-        len) *
-      100;
-    this.progress = Math.floor(result);
+    // const len = this.card.CheckLists.length;
+    // const result =
+    //   (this.card.CheckLists.filter(v => {
+    //     return v.value == "complete";
+    //   }).length /
+    //     len) *
+    //   100;
+    // this.progress = Math.floor(result);
   },
   methods: {
     ...mapActions(["ADD_CARD", "UPDATE_CHECK", "DELETE_CHECK", "FETCH_CARD"]),
@@ -84,7 +84,6 @@ export default {
       this.FETCH_CARD({ id });
     },
     onSaveCheck(checkId, e) {
-      e.preventDefault();
       const value = {
         id: checkId,
         value: e.target.checked
